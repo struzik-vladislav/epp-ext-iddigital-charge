@@ -1,0 +1,43 @@
+{
+  "name": "struzik-vladislav/epp-ext-iddigital-charge",
+  "description": "Charge extension provided by Identity Digital (https://www.identity.digital/).",
+  "keywords": [
+    "epp",
+    "extension",
+    "registry",
+    "domain",
+    "identity digital"
+  ],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Vladislav Struzik",
+      "email": "vladislav@struzik.blog"
+    }
+  ],
+  "require": {
+    "php": ">=7.4 <8.2",
+    "ext-dom": "*",
+    "psr/log": "~1.0 | ~2.0 | ~3.0",
+    "struzik-vladislav/epp-client": "^2.0",
+    "struzik-vladislav/xpath-extended": "~1.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9.0",
+    "struzik-vladislav/epp-ext-rgp": "^2.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Struzik\\EPPClient\\Extension\\IdDigital\\Charge\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Struzik\\EPPClient\\Tests\\": "vendor/struzik-vladislav/epp-client/tests/",
+      "Struzik\\EPPClient\\Extension\\IdDigital\\Charge\\Tests\\": "tests/"
+    }
+  },
+  "scripts": {
+    "test": "vendor/bin/phpunit tests/"
+  }
+}
