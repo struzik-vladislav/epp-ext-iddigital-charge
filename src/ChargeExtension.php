@@ -48,6 +48,8 @@ class ChargeExtension implements ExtensionInterface
     {
         if (!in_array($this->uri, $response->getUsedNamespaces(), true)) {
             $this->logger->debug(sprintf('Namespace with URI "%s" does not exists in used namespaces in the response object.', $this->uri));
+
+            return;
         }
 
         $node = $response->getFirst('//charge:chkData');
