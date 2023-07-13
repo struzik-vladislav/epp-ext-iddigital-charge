@@ -7,6 +7,7 @@ use Struzik\EPPClient\EPPClient;
 use Struzik\EPPClient\Extension\ExtensionInterface;
 use Struzik\EPPClient\Extension\IdDigital\Charge\Response\Addon\ChargeCheckData;
 use Struzik\EPPClient\Extension\IdDigital\Charge\Response\Addon\ChargeCreateData;
+use Struzik\EPPClient\Extension\IdDigital\Charge\Response\Addon\ChargeInfoData;
 use Struzik\EPPClient\Extension\IdDigital\Charge\Response\Addon\ChargeRenewData;
 use Struzik\EPPClient\Extension\IdDigital\Charge\Response\Addon\ChargeTransferData;
 use Struzik\EPPClient\Extension\IdDigital\Charge\Response\Addon\ChargeUpdateData;
@@ -56,6 +57,12 @@ class ChargeExtension implements ExtensionInterface
         if (null !== $node) {
             $this->logger->debug(sprintf('Adding add-on "%s" to the response object.', ChargeCheckData::class));
             $response->addExtAddon(new ChargeCheckData($response));
+        }
+
+        $node = $response->getFirst('//charge:infData');
+        if (null !== $node) {
+            $this->logger->debug(sprintf('Adding add-on "%s" to the response object.', ChargeInfoData::class));
+            $response->addExtAddon(new ChargeInfoData($response));
         }
 
         $node = $response->getFirst('//charge:creData');
