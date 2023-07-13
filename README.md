@@ -21,6 +21,7 @@ use Struzik\EPPClient\Extension\IdDigital\Charge\ChargeExtension;
 use Struzik\EPPClient\Extension\IdDigital\Charge\Request\Addon\ChargeAgreement;
 use Struzik\EPPClient\Extension\IdDigital\Charge\Response\Addon\ChargeCheckData;
 use Struzik\EPPClient\Extension\IdDigital\Charge\Response\Addon\ChargeCreateData;
+use Struzik\EPPClient\Extension\IdDigital\Charge\Response\Addon\ChargeInfoData;
 use Struzik\EPPClient\Extension\IdDigital\Charge\Response\Addon\ChargeRenewData;
 use Struzik\EPPClient\Extension\IdDigital\Charge\Response\Addon\ChargeTransferData;
 use Struzik\EPPClient\Extension\IdDigital\Charge\Response\Addon\ChargeUpdateData;
@@ -29,6 +30,7 @@ use Struzik\EPPClient\Node\Domain\DomainContactNode;
 use Struzik\EPPClient\Node\Domain\DomainPeriodNode;
 use Struzik\EPPClient\Request\Domain\CheckDomainRequest;
 use Struzik\EPPClient\Request\Domain\CreateDomainRequest;
+use Struzik\EPPClient\Request\Domain\InfoDomainRequest;
 use Struzik\EPPClient\Request\Domain\RenewDomainRequest;
 use Struzik\EPPClient\Request\Domain\RequestDomainTransferRequest;
 
@@ -54,6 +56,24 @@ if ($checkDomainAddon instanceof ChargeCheckData and $checkDomainAddon->isExists
     $renewAmount = $checkDomainAddon->getRenewAmount('premium.tld');
     $transferAmount = $checkDomainAddon->getTransferAmount('premium.tld');
     $restoreAmount = $checkDomainAddon->getRestoreAmount('premium.tld');
+}
+
+/**
+ * Domain info example.
+ */
+$request = new InfoDomainRequest($client);
+$request->setDomain('premium.tld');
+
+$response = $client->send($request);
+$infoDomainAddon = $response->findExtAddon(ChargeInfoData::class);
+if ($infoDomainAddon instanceof ChargeInfoData) {
+    $category = $infoDomainAddon->getCategory();
+    $categoryName = $infoDomainAddon->getCategoryName();
+    $type = $infoDomainAddon->getType();
+    $createAmount = $infoDomainAddon->getCreateAmount();
+    $renewAmount = $infoDomainAddon->getRenewAmount();
+    $transferAmount = $infoDomainAddon->getTransferAmount();
+    $restoreAmount = $infoDomainAddon->getRestoreAmount();
 }
 
 /**
